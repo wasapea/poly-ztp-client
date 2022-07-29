@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ztp-cli</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>ztp-cli</strong></big></big> (version .1)</font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:c%3A%5Cusers%5Cskbaker%5Cdocuments%5Cprogramming%5Ccurrent%5Cztp-client%5Cztp-cli.py">c:\users\skbaker\documents\programming\current\ztp-client\ztp-cli.py</a></font></td></tr></table>
+    <p><tt>A&nbsp;cli&nbsp;client&nbsp;for&nbsp;interacting&nbsp;with&nbsp;the&nbsp;Poly&nbsp;ZTP&nbsp;system<br>
+Poly&nbsp;ZTP&nbsp;allows&nbsp;us&nbsp;to&nbsp;set&nbsp;a&nbsp;provisioning&nbsp;URL&nbsp;for&nbsp;phones&nbsp;that&nbsp;cannot&nbsp;receive&nbsp;it&nbsp;via&nbsp;DHCP&nbsp;option&nbsp;66&nbsp;and&nbsp;do&nbsp;not&nbsp;have&nbsp;it&nbsp;hardcoded</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="csv.html">csv</a><br>
+<a href="json.html">json</a><br>
+</td><td width="25%" valign=top><a href="os.html">os</a><br>
+<a href="re.html">re</a><br>
+</td><td width="25%" valign=top><a href="requests.html">requests</a><br>
+<a href="sys.html">sys</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-check_devices"><strong>check_devices</strong></a>(url, headers, macs, profiles)</dt><dd><tt>Get&nbsp;information&nbsp;on&nbsp;wanted&nbsp;devices<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;url&nbsp;(string):&nbsp;URL&nbsp;of&nbsp;the&nbsp;API<br>
+&nbsp;&nbsp;&nbsp;&nbsp;headers&nbsp;(dict):&nbsp;Headers&nbsp;for&nbsp;the&nbsp;request<br>
+&nbsp;&nbsp;&nbsp;&nbsp;macs&nbsp;(list):&nbsp;List&nbsp;of&nbsp;mac&nbsp;addresses<br>
+&nbsp;&nbsp;&nbsp;&nbsp;profiles&nbsp;(list):&nbsp;List&nbsp;of&nbsp;ZTP&nbsp;profiles</tt></dd></dl>
+ <dl><dt><a name="-delete_device"><strong>delete_device</strong></a>(url, headers, macs, profiles)</dt><dd><tt>Deregister&nbsp;devices&nbsp;from&nbsp;Poly&nbsp;ZTP<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;url&nbsp;(string):&nbsp;URL&nbsp;of&nbsp;the&nbsp;API<br>
+&nbsp;&nbsp;&nbsp;&nbsp;headers&nbsp;(dict):&nbsp;Headers&nbsp;for&nbsp;the&nbsp;request<br>
+&nbsp;&nbsp;&nbsp;&nbsp;macs&nbsp;(list):&nbsp;List&nbsp;of&nbsp;mac&nbsp;addresses<br>
+&nbsp;&nbsp;&nbsp;&nbsp;profiles&nbsp;(list):&nbsp;List&nbsp;of&nbsp;ZTP&nbsp;profiles</tt></dd></dl>
+ <dl><dt><a name="-get_choice"><strong>get_choice</strong></a>(question, choices)</dt><dd><tt>Asks&nbsp;a&nbsp;user&nbsp;a&nbsp;multiple&nbsp;choice&nbsp;question&nbsp;and&nbsp;returns&nbsp;the&nbsp;index&nbsp;of&nbsp;their&nbsp;choice&nbsp;in&nbsp;the&nbsp;list<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;question&nbsp;(string):&nbsp;Question&nbsp;to&nbsp;ask&nbsp;the&nbsp;user<br>
+&nbsp;&nbsp;&nbsp;&nbsp;choices&nbsp;(list):&nbsp;List&nbsp;of&nbsp;questions&nbsp;for&nbsp;the&nbsp;user<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int:&nbsp;Index&nbsp;in&nbsp;the&nbsp;list&nbsp;of&nbsp;the&nbsp;selected&nbsp;choice</tt></dd></dl>
+ <dl><dt><a name="-get_mac"><strong>get_mac</strong></a>(question, mac='', line='')</dt><dd><tt>Get&nbsp;input&nbsp;from&nbsp;the&nbsp;user&nbsp;and&nbsp;make&nbsp;sure&nbsp;it's&nbsp;a&nbsp;mac&nbsp;address<br>
+If&nbsp;a&nbsp;mac&nbsp;and&nbsp;line&nbsp;number&nbsp;are&nbsp;specified,&nbsp;instead&nbsp;verify&nbsp;the&nbsp;mac&nbsp;is&nbsp;legitimate<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;question&nbsp;(string):&nbsp;Question&nbsp;to&nbsp;ask&nbsp;the&nbsp;user<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;string:&nbsp;User's&nbsp;answer</tt></dd></dl>
+ <dl><dt><a name="-get_yes_no"><strong>get_yes_no</strong></a>(question, default=False)</dt><dd><tt>Get&nbsp;a&nbsp;yes&nbsp;or&nbsp;no&nbsp;answer&nbsp;from&nbsp;the&nbsp;user<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;question&nbsp;(string):&nbsp;Question&nbsp;for&nbsp;the&nbsp;user<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;bool:&nbsp;User's&nbsp;answer&nbsp;of&nbsp;yes/no&nbsp;converted&nbsp;to&nbsp;True/False</tt></dd></dl>
+ <dl><dt><a name="-import_macs"><strong>import_macs</strong></a>()</dt><dd><tt>Import&nbsp;a&nbsp;csv&nbsp;of&nbsp;mac&nbsp;addresses<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;list:&nbsp;List&nbsp;of&nbsp;mac&nbsp;addresses</tt></dd></dl>
+ <dl><dt><a name="-load_profiles"><strong>load_profiles</strong></a>(url, headers)</dt><dd><tt>Query&nbsp;API&nbsp;for&nbsp;profiles&nbsp;and&nbsp;return&nbsp;a&nbsp;list&nbsp;of&nbsp;them<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;url&nbsp;(string):&nbsp;URL&nbsp;of&nbsp;the&nbsp;API<br>
+&nbsp;&nbsp;&nbsp;&nbsp;headers&nbsp;(dict):&nbsp;Headers&nbsp;for&nbsp;the&nbsp;request<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;list:&nbsp;List&nbsp;of&nbsp;profiles&nbsp;attached&nbsp;to&nbsp;our&nbsp;account</tt></dd></dl>
+ <dl><dt><a name="-main"><strong>main</strong></a>()</dt><dd><tt>The&nbsp;main&nbsp;function<br>
+Gathers&nbsp;input&nbsp;from&nbsp;the&nbsp;user&nbsp;and&nbsp;calls&nbsp;appropriate&nbsp;functions</tt></dd></dl>
+ <dl><dt><a name="-register_devices"><strong>register_devices</strong></a>(url, headers, macs, profiles)</dt><dd><tt>Register&nbsp;devices&nbsp;with&nbsp;Poly&nbsp;ZTP<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;url&nbsp;(string):&nbsp;URL&nbsp;of&nbsp;the&nbsp;API<br>
+&nbsp;&nbsp;&nbsp;&nbsp;headers&nbsp;(dict):&nbsp;Headers&nbsp;for&nbsp;the&nbsp;request<br>
+&nbsp;&nbsp;&nbsp;&nbsp;macs&nbsp;(list):&nbsp;List&nbsp;of&nbsp;mac&nbsp;addresses<br>
+&nbsp;&nbsp;&nbsp;&nbsp;profiles&nbsp;(list):&nbsp;List&nbsp;of&nbsp;ZTP&nbsp;profiles</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>__email__</strong> = 'skylar.baker@metronet.com'<br>
+<strong>__maintainer__</strong> = 'Skylar Baker'<br>
+<strong>__status__</strong> = 'Development'</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#7799ee">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Author</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#7799ee"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%">Skylar&nbsp;Baker</td></tr></table>
+</body></html>
