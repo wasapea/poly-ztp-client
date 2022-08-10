@@ -6,12 +6,20 @@ import os, sys
 import json, csv, re
 import requests
 from pprint import pprint
+import argparse
 
 __author__ = "Skylar Baker"
 __version__ = ".1"
 __status__ = "Development"
 __maintainer__ = "Skylar Baker"
 __email__ = "skylar.baker@metronet.com"
+
+def parse_args():
+    parser=argparse.ArgumentParser(description="CLI client for Poly ZTP")
+    parser.add_argument("-m", "--mac")
+    parser.add_argument("-k", "--key")
+    args = parser.parse_args()
+    return args
 
 def get_yes_no(question, default=False):
     """Get a yes or no answer from the user
@@ -53,8 +61,11 @@ def get_mac(question, mac='', line=''):
     if re.match(regex, answer):
         return answer.replace(":", "").replace("-", "").replace(" ", "")
     else:
-        if mac:
+        if mac and line:
             print(f"{mac} on line {line} is not a valid mac address")
+            sys.exit(1)
+        elif mac:
+            print(f"{mac} is not a valid mac address")
             sys.exit(1)
         else:
             return get_mac(question)
@@ -144,6 +155,9 @@ def load_profiles(url, headers):
         list: List of profiles attached to our account
     """
     profile_response = requests.get(f"{url}/profiles", headers=headers)
+    if not profile_response.status_code == 200:
+        print("Unable to load profiles from Poly ZTP. Is your api key correct?")
+        sys.exit(1)
     profiles = []
     profile_data = json.loads(profile_response.content)["results"]
     for p in profile_data:
@@ -167,7 +181,7 @@ def check_devices(url, headers, macs, profiles):
             print(f"I couldn't query for {m}, is Poly ZTP down?")
         else:
             device_data = json.loads(device_response.content)
-            if "message" in device_data.keys():
+            if "message" in device_data.keys() or device_response.status_code == 404:
                 if device_data["message"] == "Unauthorized":
                     print(f"I couldn't query for {m}, is the API key correct?")
                     sys.exit(1)
@@ -228,29 +242,38 @@ def main ():
     """The main function
     Gathers input from the user and calls appropriate functions
     """
+    args = parse_args()
     # Get the api key and set up variables to use later
-    try:
-        with open("apikey", 'r') as f:
-            apikey = f.read()
-        apikey = apikey.strip()
-    except:
-        print("Please create a file named 'apikey' that only contains the Poly ZTP API key")
-        sys.exit(1)
+    if not args.key:
+        try:
+            with open("apikey", 'r') as f:
+                apikey = f.read()
+            apikey = apikey.strip()
+        except:
+            print("Please create a file named 'apikey' that only contains the Poly ZTP API key")
+            sys.exit(1)
+    else:
+        apikey = args.key.strip()
     url = "https://api.ztp.poly.com/preview"
     headers = {"API-KEY": apikey}
     profiles = load_profiles(url, headers)
 
     # First get the macs
-    will_upload = get_yes_no("Would you like to upload a csv?\nIf you answer no you can still enter multiple macs")
-    if will_upload:
-        macs = import_macs()
+    if not args.mac:
+        will_upload = get_yes_no("Would you like to upload a csv?\nIf you answer no you can still enter multiple macs")
+        if will_upload:
+            macs = import_macs()
+        else:
+            macs = []
+            while True:
+                macs.append(get_mac("What is the mac?"))
+                more_macs = get_yes_no("Would you like to upload another mac address?")
+                if not more_macs:
+                    break
     else:
-        macs = []
-        while True:
-            macs.append(get_mac("What is the mac?"))
-            more_macs = get_yes_no("Would you like to upload another mac address?")
-            if not more_macs:
-                break
+        macs = args.mac.split(" ")
+        for m in macs:
+            verified_mac = get_mac("", mac=m)
 
     # Then see what they want to do
     while True:
@@ -265,7 +288,7 @@ def main ():
         elif answer == 2:
             # Remove device(s)
             delete_device(url, headers, macs, profiles)
-        answer = get_yes_no("Would you like to make another selection?")
+        answer = get_yes_no("Would you like to make another selection with the same MAC addresses?")
         if answer:
             pass
         else:
