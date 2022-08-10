@@ -26,7 +26,7 @@ Each Metaswitch we own has its own provisioning profile. The program will ask wh
 * jaguar - This should not be used
 
 # Usage
-Run `main.py`. Several questions will be asked in the CLI window you ran the script from.
+Run `ztp-cli.py`. Several questions will be asked in the CLI window you ran the script from.
 
 * Startup
     * The script contacts Poly ZTP to download profile names and IDs
