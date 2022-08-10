@@ -76,7 +76,7 @@ def import_macs():
     Returns:
         list: List of mac addresses
     """
-    csvs_exist = os.path.exists('./csvs')
+    csvs_exist = os.path.exists('../csvs')
     if not csvs_exist:
         print("Please create a folder named 'csvs' in the same directory as this file")
         sys.exit(1)
