@@ -26,6 +26,14 @@ Each Metaswitch we own has its own provisioning profile. The program will ask wh
 * jaguar - This should not be used
 
 # Usage
+## CLI options
+`ztp-cli.py` has two optional arguments. These are not position dependent.
+* `--key` or `-k`
+    * This is the API key to use. If none is provided it will search for a file named `apikey` in the same directory
+* `--mac` or `-m`
+    * These are the MACs to query. Multiple MACs separated by spaces can be passed.
+
+## Interactive
 Run `ztp-cli.py`. Several questions will be asked in the CLI window you ran the script from.
 
 * Startup

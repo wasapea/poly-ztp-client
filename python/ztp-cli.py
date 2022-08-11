@@ -16,8 +16,8 @@ __email__ = "skylar.baker@metronet.com"
 
 def parse_args():
     parser=argparse.ArgumentParser(description="CLI client for Poly ZTP")
-    parser.add_argument("-m", "--mac")
-    parser.add_argument("-k", "--key")
+    parser.add_argument("-m", "--mac", nargs='+', help="MACs to query separated by spaces. If none are specified the user will be prompted to enter them via the CLI or upload a csv")
+    parser.add_argument("-k", "--key", help="API key to use, if none is supplied it will load from the apikey file")
     args = parser.parse_args()
     return args
 
@@ -249,6 +249,7 @@ def main ():
             with open("apikey", 'r') as f:
                 apikey = f.read()
             apikey = apikey.strip()
+            print("Loaded apikey file")
         except:
             print("Please create a file named 'apikey' that only contains the Poly ZTP API key")
             sys.exit(1)
@@ -271,9 +272,10 @@ def main ():
                 if not more_macs:
                     break
     else:
-        macs = args.mac.split(" ")
-        for m in macs:
+        macs = []
+        for m in args.mac:
             verified_mac = get_mac("", mac=m)
+            macs.append(verified_mac)
 
     # Then see what they want to do
     while True:
